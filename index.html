@@ -7,17 +7,18 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-image: url('https://i.imgur.com/AFk5lZ5.jpg'); /* fondo estético floral */
+      background-image: url('https://i.imgur.com/9h8aIUF.jpg'); /* Fondo rosita tipo aesthetic */
       background-size: cover;
+      background-position: center;
       background-attachment: fixed;
-      padding: 20px;
       margin: 0;
+      padding: 20px;
       color: #333;
     }
 
     #chat {
       max-width: 700px;
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.88);
       margin: auto;
       border-radius: 20px;
       padding: 30px;
@@ -26,17 +27,18 @@
 
     .titulo {
       text-align: center;
-      font-size: 28px;
+      font-size: 32px;
       font-weight: bold;
-      color: #bb7eb2;
-      margin-bottom: 10px;
+      color: #d26da7;
+      margin-bottom: 5px;
+      text-shadow: 1px 1px #fff;
     }
 
     .autoras {
       text-align: center;
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 20px;
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 25px;
     }
 
     .mensaje {
@@ -45,29 +47,25 @@
     }
 
     .bot {
-      background-color: #f3e0f7;
-      padding: 10px;
-      border-radius: 10px;
-      max-width: 80%;
-    }
-
-    .usuario {
-      text-align: right;
-      color: #0077cc;
+      background-color: #fde6f2;
+      padding: 12px;
+      border-radius: 12px;
+      max-width: 85%;
+      border: 1px solid #f3cce0;
     }
 
     input, button {
       padding: 10px;
       margin-top: 10px;
       width: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1px solid #ccc;
+      font-size: 15px;
       box-sizing: border-box;
-      font-size: 14px;
     }
 
     button {
-      background-color: #bb7eb2;
+      background-color: #d26da7;
       color: white;
       border: none;
       cursor: pointer;
@@ -75,7 +73,7 @@
     }
 
     button:hover {
-      background-color: #a367a0;
+      background-color: #b85794;
     }
 
     .oculto {
@@ -84,11 +82,14 @@
   </style>
 </head>
 <body>
+
   <div id="chat">
     <div class="titulo">MaiLu & Co.</div>
-    <div class="autoras">Creado por Madai Yamile Corona Vargas y Luciana Lozano Rivera</div>
+    <div class="autoras">Madai Yamile Corona Vargas • Luciana Lozano Rivera</div>
 
-    <div class="mensaje bot">Este código fue hecho originalmente para Python pero se adaptó a una página web interactiva. 😊</div>
+    <div class="mensaje bot">
+      Este código fue hecho originalmente para Python pero se adaptó a una página web interactiva. 😊
+    </div>
 
     <div id="login">
       <div class="mensaje bot">📧 Ingresa tu correo institucional para continuar:</div>
@@ -98,7 +99,7 @@
 
     <div id="conversacion" class="oculto">
       <div class="mensaje bot">👋 Hola! ¿Qué día quieres consultar tu horario?</div>
-      <input type="text" id="dia" placeholder="Escribe un día... ej. lunes">
+      <input type="text" id="dia" placeholder="Ej. lunes">
       <button onclick="mostrarHorario()">Consultar</button>
       <div id="respuesta"></div>
     </div>
@@ -106,48 +107,11 @@
 
   <script>
     const horarios = {
-      lunes: [
-        "2 clases de Pensamiento Matemático II",
-        "1 clase de M1.S2. PROG. Codifica Software de Sistemas Informáticos",
-        "Receso",
-        "4 clases de M1.S1. PROG. Diseña Software de Sistemas Informáticos",
-        "Salida"
-      ],
-      martes: [
-        "1 clase de M1.S3. PROG. Implementa Software de Sistemas Informáticos",
-        "2 clases de Pensamiento Matemático II",
-        "Receso",
-        "1 clase de Inglés II",
-        "3 clases de M1.S2. PROG. Codifica Software de Sistemas Informáticos",
-        "Salida"
-      ],
-      miercoles: [
-        "2 clases de M1.S3. PROG. Implementa Software de Sistemas Informáticos",
-        "1 clase de Lengua y Comunicación II",
-        "1 clase de La conservación de la energía y su interacción con la materia",
-        "Receso",
-        "1 clase de M1.S1. PROG. Diseña Software de Sistemas Informáticos",
-        "3 clases de M1.S2. PROG. Codifica Software de Sistemas Informáticos",
-        "Salida"
-      ],
-      jueves: [
-        "1 clase de Ciencias Sociales II",
-        "2 clases de Lengua y Comunicación II",
-        "1 clase de Cultura Digital II",
-        "Receso",
-        "1 clase de Cultura Digital II",
-        "2 clases de La conservación de la energía y su interacción con la materia",
-        "1 clase de Ciencias Sociales II",
-        "Salida"
-      ],
-      viernes: [
-        "1 clase de Socioemocional II",
-        "1 clase de La conservación de la energía y su interacción con la materia",
-        "Receso",
-        "2 clases de M1.S3. PROG. Implementa Software de Sistemas Informáticos",
-        "2 clases de Inglés II",
-        "Salida"
-      ]
+      lunes: ["2 clases de Pensamiento Matemático II", "1 clase de M1.S2. Codifica Software", "Receso", "4 clases de M1.S1. Diseña Software", "Salida"],
+      martes: ["1 clase de M1.S3. Implementa Software", "2 clases de Pensamiento Matemático II", "Receso", "1 clase de Inglés II", "3 clases de M1.S2. Codifica Software", "Salida"],
+      miercoles: ["2 clases de M1.S3. Implementa Software", "1 clase de Lengua y Comunicación II", "1 clase de Energía y Materia", "Receso", "1 clase de Diseña Software", "3 clases de Codifica Software", "Salida"],
+      jueves: ["1 clase de Ciencias Sociales II", "2 clases de Lengua y Comunicación II", "1 clase de Cultura Digital II", "Receso", "1 clase de Cultura Digital II", "2 clases de Energía y Materia", "1 clase de Ciencias Sociales II", "Salida"],
+      viernes: ["1 clase de Socioemocional II", "1 clase de Energía y Materia", "Receso", "2 clases de Implementa Software", "2 clases de Inglés II", "Salida"]
     };
 
     function validarCorreo(e) {
@@ -162,21 +126,21 @@
     }
 
     function mostrarHorario() {
-      const diaInput = document.getElementById("dia").value.trim().toLowerCase();
-      const diaNormalizado = diaInput.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const contenedor = document.getElementById("respuesta");
-      contenedor.innerHTML = "";
+      const input = document.getElementById("dia").value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const respuesta = document.getElementById("respuesta");
+      respuesta.innerHTML = "";
 
-      if (horarios[diaNormalizado]) {
-        const diaCapitalizado = diaNormalizado.charAt(0).toUpperCase() + diaNormalizado.slice(1);
-        contenedor.innerHTML += `<div class='mensaje bot'><strong>\ud83d\udcc5 Clases del ${diaCapitalizado}:</strong></div>`;
-        horarios[diaNormalizado].forEach(clase => {
-          contenedor.innerHTML += `<div class='mensaje bot'>- ${clase}</div>`;
+      if (horarios[input]) {
+        const diaC = input.charAt(0).toUpperCase() + input.slice(1);
+        respuesta.innerHTML += `<div class="mensaje bot"><strong>📅 Clases del ${diaC}:</strong></div>`;
+        horarios[input].forEach(c => {
+          respuesta.innerHTML += `<div class="mensaje bot">- ${c}</div>`;
         });
       } else {
-        contenedor.innerHTML = `<div class='mensaje bot'>❌ Día no válido. Por favor escribe: lunes, martes, miércoles, jueves o viernes.</div>`;
+        respuesta.innerHTML = `<div class="mensaje bot">❌ Día no válido. Por favor escribe: lunes, martes, miércoles, jueves o viernes.</div>`;
       }
     }
   </script>
+
 </body>
 </html>
