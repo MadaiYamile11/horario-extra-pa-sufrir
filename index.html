@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horario 2AVP - MaiLu & Co.</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('https://i.imgur.com/AFk5lZ5.jpg'); /* fondo estético floral */
+      background-size: cover;
+      background-attachment: fixed;
+      padding: 20px;
+      margin: 0;
+      color: #333;
+    }
+
+    #chat {
+      max-width: 700px;
+      background-color: rgba(255, 255, 255, 0.9);
+      margin: auto;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .titulo {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: #bb7eb2;
+      margin-bottom: 10px;
+    }
+
+    .autoras {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .mensaje {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    .bot {
+      background-color: #f3e0f7;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+
+    .usuario {
+      text-align: right;
+      color: #0077cc;
+    }
+
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #bb7eb2;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #a367a0;
+    }
+
+    .oculto {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat">
+    <div class="titulo">MaiLu & Co.</div>
+    <div class="autoras">Creado por Madai Yamile Corona Vargas y Luciana Lozano Rivera</div>
+
+    <div class="mensaje bot">Este código fue hecho originalmente para Python pero se adaptó a una página web interactiva. 😊</div>
+
+    <div id="login">
+      <div class="mensaje bot">📧 Ingresa tu correo institucional para continuar:</div>
+      <input type="email" id="correo" placeholder="ejemplo@cbtis156.edu.mx">
+      <button onclick="validarCorreo(event)">Iniciar sesión</button>
+    </div>
+
+    <div id="conversacion" class="oculto">
+      <div class="mensaje bot">👋 Hola! ¿Qué día quieres consultar tu horario?</div>
+      <input type="text" id="dia" placeholder="Escribe un día... ej. lunes">
+      <button onclick="mostrarHorario()">Consultar</button>
+      <div id="respuesta"></div>
+    </div>
+  </div>
+
+  <script>
+    const horarios = {
+      lunes: [
+        "2 clases de Pensamiento Matemático II",
+        "1 clase de M1.S2. PROG. Codifica Software de Sistemas Informáticos",
+        "Receso",
+        "4 clases de M1.S1. PROG. Diseña Software de Sistemas Informáticos",
+        "Salida"
+      ],
+      martes: [
+        "1 clase de M1.S3. PROG. Implementa Software de Sistemas Informáticos",
+        "2 clases de Pensamiento Matemático II",
+        "Receso",
+        "1 clase de Inglés II",
+        "3 clases de M1.S2. PROG. Codifica Software de Sistemas Informáticos",
+        "Salida"
+      ],
+      miercoles: [
+        "2 clases de M1.S3. PROG. Implementa Software de Sistemas Informáticos",
+        "1 clase de Lengua y Comunicación II",
+        "1 clase de La conservación de la energía y su interacción con la materia",
+        "Receso",
+        "1 clase de M1.S1. PROG. Diseña Software de Sistemas Informáticos",
+        "3 clases de M1.S2. PROG. Codifica Software de Sistemas Informáticos",
+        "Salida"
+      ],
+      jueves: [
+        "1 clase de Ciencias Sociales II",
+        "2 clases de Lengua y Comunicación II",
+        "1 clase de Cultura Digital II",
+        "Receso",
+        "1 clase de Cultura Digital II",
+        "2 clases de La conservación de la energía y su interacción con la materia",
+        "1 clase de Ciencias Sociales II",
+        "Salida"
+      ],
+      viernes: [
+        "1 clase de Socioemocional II",
+        "1 clase de La conservación de la energía y su interacción con la materia",
+        "Receso",
+        "2 clases de M1.S3. PROG. Implementa Software de Sistemas Informáticos",
+        "2 clases de Inglés II",
+        "Salida"
+      ]
+    };
+
+    function validarCorreo(e) {
+      e.preventDefault();
+      const correo = document.getElementById("correo").value;
+      if (correo.endsWith("@cbtis156.edu.mx")) {
+        document.getElementById("login").classList.add("oculto");
+        document.getElementById("conversacion").classList.remove("oculto");
+      } else {
+        alert("Por favor ingresa un correo válido del CBTis 156");
+      }
+    }
+
+    function mostrarHorario() {
+      const diaInput = document.getElementById("dia").value.trim().toLowerCase();
+      const diaNormalizado = diaInput.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const contenedor = document.getElementById("respuesta");
+      contenedor.innerHTML = "";
+
+      if (horarios[diaNormalizado]) {
+        const diaCapitalizado = diaNormalizado.charAt(0).toUpperCase() + diaNormalizado.slice(1);
+        contenedor.innerHTML += `<div class='mensaje bot'><strong>\ud83d\udcc5 Clases del ${diaCapitalizado}:</strong></div>`;
+        horarios[diaNormalizado].forEach(clase => {
+          contenedor.innerHTML += `<div class='mensaje bot'>- ${clase}</div>`;
+        });
+      } else {
+        contenedor.innerHTML = `<div class='mensaje bot'>❌ Día no válido. Por favor escribe: lunes, martes, miércoles, jueves o viernes.</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
